@@ -3,7 +3,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 // const bcrypt = require("bcrypt");
-import bcrypt from "bcryptjs";
+const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const Contractor = require("../models/Contractor");
 const fileUpload = require("../ContractorPic");
