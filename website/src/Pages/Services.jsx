@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import image1 from '../assets/Services_Page_Pics/image1.JPG';
+import image1 from '../assets/Services_Page_Pics/Image1.JPG';
 import bg_Funfact from '../assets/Services_Page_Pics/bg-funfact.png';
 import funfact1 from '../assets/Services_Page_Pics/Funfact1.png';
 import funfact2 from '../assets/Services_Page_Pics/Funfact2.png';
