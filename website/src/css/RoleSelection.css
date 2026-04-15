@@ -1,0 +1,93 @@
+.role-selection-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5; /* Light grey background */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.role-selection-card {
+  text-align: center;
+  padding: 40px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer shadow */
+  width: 100%;
+  max-width: 500px; /* Limit card width */
+  animation: fadeInScale 0.5s ease-out;
+}
+
+.role-selection-heading {
+  margin-bottom: 30px;
+  font-size: 2.5rem; /* Larger heading */
+  color: #333;
+  font-weight: 700;
+}
+
+.role-selection-button {
+  font-size: 1.3rem;
+  padding: 15px 30px;
+  border-radius: 8px; /* Slightly less rounded buttons */
+  transition: all 0.3s ease; /* Smooth transitions */
+  border: none;
+  cursor: pointer;
+}
+
+.role-selection-button:hover {
+  transform: translateY(-3px); /* Lift button on hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contractor-button {
+  background-color: #007bff; /* Primary blue */
+  color: white;
+}
+
+.contractor-button:hover {
+  background-color: #0056b3;
+}
+
+.customer-button {
+  background-color: #28a745; /* Success green */
+  color: white;
+}
+
+.customer-button:hover {
+  background-color: #1e7e34;
+}
+
+/* Responsiveness */
+@media (max-width: 576px) {
+  .role-selection-card {
+    margin: 20px;
+    padding: 30px;
+  }
+
+  .role-selection-heading {
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+
+  .d-flex.gap-3 {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 15px !important;
+  }
+
+  .role-selection-button {
+    font-size: 1.1rem;
+    padding: 12px 25px;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+

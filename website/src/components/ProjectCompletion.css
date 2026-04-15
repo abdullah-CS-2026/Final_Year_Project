@@ -1,0 +1,229 @@
+.project-completion-container {
+  margin: 20px 0;
+}
+
+.completion-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.completion-title {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.project-info {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  font-weight: 500;
+  color: #666;
+  font-size: 14px;
+}
+
+.value {
+  color: #333;
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.open {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.in-progress {
+  background-color: #fff3e0;
+  color: #f57c00;
+}
+
+.status-badge.completed {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-badge.closed {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border-left: 4px solid #c62828;
+}
+
+.completion-section {
+  margin-top: 20px;
+}
+
+.completion-description {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.btn-mark-complete {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.btn-mark-complete:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.btn-mark-complete:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 8px;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h4 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-content p {
+  margin: 0 0 24px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-cancel,
+.btn-confirm {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.btn-confirm {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+.btn-cancel:disabled,
+.btn-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.completion-success {
+  background-color: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  padding: 16px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 32px;
+  color: #4caf50;
+  margin-bottom: 8px;
+}
+
+.completion-success p {
+  color: #2e7d32;
+  margin: 0;
+  font-size: 14px;
+}
+
+.completion-closed {
+  background-color: #f3e5f5;
+  border-left: 4px solid #7b1fa2;
+  padding: 16px;
+  border-radius: 4px;
+  color: #6a1b9a;
+  font-size: 14px;
+}
+
+.project-completion-loading {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
