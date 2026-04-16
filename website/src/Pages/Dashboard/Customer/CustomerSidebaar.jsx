@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { FileText } from "react-bootstrap-icons";
 import { NavLink, useNavigate } from "react-router";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const CustomerSidebar = ({ showSidebar, setShowSidebar }) => {
   const navigate = useNavigate();

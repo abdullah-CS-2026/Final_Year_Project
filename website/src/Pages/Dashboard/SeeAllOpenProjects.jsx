@@ -5,6 +5,7 @@ import {
   FaCalendarAlt, FaExclamationCircle, FaPaperclip
 } from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 /* ─────────────────────────────────────────
    STYLES
@@ -477,7 +478,7 @@ const DetailRow = ({ icon: Icon, label, value }) => (
 const ProjectCard = ({ project, contractorId, navigate }) => {
   const isUrgent = project.urgency === "urgent";
   const avatar = project.customer?.profilePic
-    ? `http://localhost:5000${project.customer.profilePic}`
+    ? `${BASE_URL}${project.customer.profilePic}`
     : `https://ui-avatars.com/api/?name=${encodeURIComponent(project.customer?.name || "U")}&background=dbeafe&color=2563eb&bold=true`;
 
   return (
@@ -524,7 +525,7 @@ const ProjectCard = ({ project, contractorId, navigate }) => {
             {project.attachments.map((file, i) => (
               <a
                 key={i}
-                href={`http://localhost:5000/${file}`}
+                href={`${BASE_URL}/${file}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="sap-attach-link"
@@ -575,7 +576,7 @@ export const SeeAllOpenProjects = () => {
           return;
         }
 
-        const url = `http://localhost:5000/contractor/projects/${contractorId}`;
+        const url = `${BASE_URL}/contractor/projects/${contractorId}`;
         console.log("🔍 [FETCH PROJECTS] Fetching from:", url);
 
         const res = await fetch(url);

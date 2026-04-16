@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const PendingContractors = () => {
   const [list, setList] = useState([]);
   const token = localStorage.getItem("adminToken");
@@ -10,13 +10,13 @@ export const PendingContractors = () => {
   }, []);
 
   const fetchPending = async () => {
-    const res = await fetch("http://localhost:5000/admin/contractors/pending");
+    const res = await fetch(`${BASE_URL}/admin/contractors/pending`);
     const data = await res.json();
     setList(data.list || []);
   };
 
   const action = async (id, type) => {
-    await fetch(`http://localhost:5000/admin/contractors/${id}/${type}`, {
+    await fetch(`${BASE_URL}/admin/contractors/${id}/${type}`, {
       method: "PUT",
       headers: { Authorization: `Bearer ${token}` },
     });

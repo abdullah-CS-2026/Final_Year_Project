@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router";
 import { Mail, Lock, Hammer } from "lucide-react";
 import { showToast } from "../../components/Toast";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const ContractorLogin = () => {
 
@@ -21,7 +22,7 @@ export const ContractorLogin = () => {
 
     try {
 
-      const res = await fetch("http://localhost:5000/contractor/login", {
+      const res = await fetch(`${BASE_URL}/contractor/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -259,7 +260,7 @@ export const ContractorLogin = () => {
                   {contractor.profilePic && (
 
                     <img
-                      src={`http://localhost:5000${contractor.profilePic}`}
+                      src={`${BASE_URL}${contractor.profilePic}`}
                       alt="Profile"
                       className="rounded-circle mt-2"
                       style={{

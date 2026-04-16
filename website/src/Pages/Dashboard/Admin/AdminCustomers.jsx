@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Form } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const AdminCustomers = () => {
   const [customers, setCustomers] = useState([]);
   const [search, setSearch] = useState("");
@@ -11,7 +11,7 @@ export const AdminCustomers = () => {
   }, []);
 
   const fetchCustomers = async () => {
-    const res = await fetch("http://localhost:5000/customer/list");
+    const res = await fetch(`${BASE_URL}/customer/list`);
     const data = await res.json();
     setCustomers(data.list || []);
   };

@@ -4,7 +4,7 @@ import {
   FileText, MapPin, Maximize2, DollarSign,
   Calendar, Zap, AlignLeft, Paperclip, Send, Eye
 } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -368,7 +368,7 @@ export const CustomerProjectForm = () => {
           submission.append(key, formData[key]);
         }
       });
-      const res = await fetch("http://localhost:5000/customer/projects", {
+      const res = await fetch(`${BASE_URL}/customer/projects`, {
         method: "POST",
         body: submission,
       });

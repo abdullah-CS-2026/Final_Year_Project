@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Clock } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 /* ═══════════════════════════════════════════
    STYLES
@@ -604,7 +605,7 @@ export const ShortlistedProposals = () => {
   const handleAction = async (id, action) => {
     try {
       const token = localStorage.getItem("customerToken");
-      const res   = await fetch(`http://localhost:5000/proposals/${id}/${action}`, {
+      const res   = await fetch(`${BASE_URL}/proposals/${id}/${action}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });
@@ -640,7 +641,7 @@ export const ShortlistedProposals = () => {
         const token      = localStorage.getItem("customerToken");
         const customerId = customer?._id || customer?.id;
         if (!customerId) { setLoading(false); return; }
-        const res  = await fetch(`http://localhost:5000/proposals/customer/${customerId}/shortlisted`, {
+        const res  = await fetch(`${BASE_URL}/proposals/customer/${customerId}/shortlisted`, {
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

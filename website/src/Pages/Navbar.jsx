@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../css/Navbar.css";
 import Logo from "../assets/About_Page_Pics/Logo.png";
 import { User } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const Navbar = () => {
     const navigate = useNavigate();
@@ -23,8 +24,8 @@ export const Navbar = () => {
 
             // Decide endpoint based on which token exists
             const endpoint = contractorToken
-                ? "http://localhost:5000/contractor/me"
-                : "http://localhost:5000/customer/me";
+                ? `${BASE_URL}/contractor/me`
+                : `${BASE_URL}/customer/me`;
 
             try {
                 const res = await fetch(endpoint, {

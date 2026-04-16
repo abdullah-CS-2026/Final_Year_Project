@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const RunningBids = () => {
   const [bids, setBids] = useState([]);
 
@@ -9,7 +9,7 @@ export const RunningBids = () => {
   }, []);
 
   const fetchBids = async () => {
-    const res = await fetch("http://localhost:5000/admin/running-bids");
+    const res = await fetch(`${BASE_URL}/admin/running-bids`);
     const data = await res.json();
     setBids(data.list || []);
   };

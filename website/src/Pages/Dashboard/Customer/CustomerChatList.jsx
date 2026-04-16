@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MessageCircle, ChevronRight, Search } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -401,7 +401,7 @@ export const CustomerChatList = () => {
         const customer = JSON.parse(localStorage.getItem("customer"));
         if (!customer) return;
         const customerId = customer._id || customer.id;
-        const response   = await fetch(`http://localhost:5000/proposals/customer/${customerId}/accepted`);
+        const response   = await fetch(`${BASE_URL}/proposals/customer/${customerId}/accepted`);
         const data       = await response.json();
         if (response.ok) setAcceptedProposals(data);
         else console.error(data.message || "Failed to fetch proposals");
@@ -415,7 +415,7 @@ export const CustomerChatList = () => {
   }, []);
 
   const openChat = (proposalId) => {
-    fetch("http://localhost:5000/chat/room", {
+    fetch(`${BASE_URL}/chat/room`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -501,7 +501,7 @@ export const CustomerChatList = () => {
                     <div className="ccl-avatar-wrap">
                       <Avatar
                         src={proposal.contractor?.profilePic
-                          ? `http://localhost:5000${proposal.contractor.profilePic}`
+                          ? `${BASE_URL}${proposal.contractor.profilePic}`
                           : null}
                         name={proposal.contractor?.name}
                       />

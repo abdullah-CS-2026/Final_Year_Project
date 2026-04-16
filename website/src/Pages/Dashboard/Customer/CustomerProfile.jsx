@@ -5,7 +5,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { User, Phone, Mail, MapPin, Users, FileText } from "lucide-react";
 import Swal from "sweetalert2";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
@@ -418,7 +418,7 @@ export const CustomerProfile = () => {
       if (selectedFile) body.append("profilePic", selectedFile);
       if (removeProfile) body.append("removeProfile", true);
 
-      const res = await fetch(`http://localhost:5000/customer/update/${customerId}`, { method: "PUT", body });
+      const res = await fetch(`${BASE_URL}/customer/update/${customerId}`, { method: "PUT", body });
       const data = await res.json();
 
       if (res.ok) {
@@ -438,7 +438,7 @@ export const CustomerProfile = () => {
   const avatarSrc = preview
     ? preview
     : customer.profilePic
-    ? `http://localhost:5000${customer.profilePic}`
+    ? `${BASE_URL}${customer.profilePic}`
     : null;
 
   return (

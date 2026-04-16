@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../css/RatingSubmission.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
 const RatingSubmission = ({ projectId, userRole, onSuccess }) => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
@@ -38,7 +39,7 @@ const RatingSubmission = ({ projectId, userRole, onSuccess }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/workflow/projects/${projectId}/details`,
+          `${BASE_URL}/workflow/projects/${projectId}/details`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -98,7 +99,7 @@ const RatingSubmission = ({ projectId, userRole, onSuccess }) => {
       }
 
       const response = await axios.patch(
-        `http://localhost:5000/workflow/projects/${projectId}/rate`,
+        `${BASE_URL}/workflow/projects/${projectId}/rate`,
         {
           rating,
           comment,

@@ -4,7 +4,7 @@ import {
   FaMoneyBillWave, FaClipboardList, FaCheckCircle
 } from "react-icons/fa";
 import { Clock, Trophy } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -536,7 +536,7 @@ export const CustomerAcceptedProposals = () => {
         const customerId = customer?._id || customer?.id;
         if (!customerId) { setLoading(false); return; }
 
-        const res  = await fetch(`http://localhost:5000/proposals/customer/${customerId}/accepted`, {
+        const res  = await fetch(`${BASE_URL}/proposals/customer/${customerId}/accepted`, {
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

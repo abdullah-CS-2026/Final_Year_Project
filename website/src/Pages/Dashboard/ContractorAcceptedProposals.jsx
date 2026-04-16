@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaUserCircle, FaEnvelope, FaPhoneAlt, FaMoneyBillWave, FaClipboardList, FaCheckCircle } from "react-icons/fa";
 import { Clock, Trophy, ChevronDown } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 /* ═══════════════════════════════════════════
    STYLES
@@ -568,7 +569,7 @@ export const ContractorAcceptedProposals = () => {
     const fetchAccepted = async () => {
       try {
         const contractorId = contractor._id;
-        const res  = await fetch(`http://localhost:5000/contractor/${contractorId}/accepted`);
+        const res  = await fetch(`${BASE_URL}/contractor/${contractorId}/accepted`);
         if (!res.ok) throw new Error(`Server returned ${res.status}`);
         const data = await res.json();
 

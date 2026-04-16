@@ -6,6 +6,7 @@ import {
 import { MdCategory } from "react-icons/md";
 import { Images } from "lucide-react";
 import Swal from "sweetalert2";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 /* ═══════════════════════════════════════════
    STYLES
@@ -541,7 +542,7 @@ const RequestCard = ({ req, onDelete }) => (
             {req.attachments.map((img, i) => (
               <img
                 key={i}
-                src={`http://localhost:5000${img}`}
+                src={`${BASE_URL}${img}`}
                 alt={`attachment-${i + 1}`}
                 className="cvr-att-img"
               />
@@ -577,7 +578,7 @@ export const CustomerViewRequests = () => {
       const customerId = result?.id || result?._id;
       if (!customerId) { setLoading(false); return; }
 
-      const res  = await fetch(`http://localhost:5000/customer/projects/${customerId}`);
+      const res  = await fetch(`${BASE_URL}/customer/projects/${customerId}`);
       const data = await res.json();
       setRequests(res.ok ? data.projects : []);
     } catch (error) {
@@ -602,7 +603,7 @@ export const CustomerViewRequests = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res  = await fetch(`http://localhost:5000/customer/projects/${requestId}`, { method: "DELETE" });
+          const res  = await fetch(`${BASE_URL}/customer/projects/${requestId}`, { method: "DELETE" });
           const data = await res.json();
           if (res.ok) {
             Swal.fire("Deleted!", data.message, "success");

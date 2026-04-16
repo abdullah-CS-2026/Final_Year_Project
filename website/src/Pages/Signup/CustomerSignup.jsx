@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Phone, MapPin, Home } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const CustomerSignup = () => {
 
@@ -49,7 +50,7 @@ export const CustomerSignup = () => {
         formDataToSend.append("profilePic", profilePic);
       }
 
-      const res = await fetch("http://localhost:5000/customer/signup", {
+      const res = await fetch(`${BASE_URL}/customer/signup`, {
         method: "POST",
         body: formDataToSend,
       });

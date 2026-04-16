@@ -4,7 +4,7 @@ import socket, {
   subscribeToNotifications,
   unsubscribeFromNotifications
 } from "../../socket";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const ContractorHeader = ({ setShowSidebar }) => {
 

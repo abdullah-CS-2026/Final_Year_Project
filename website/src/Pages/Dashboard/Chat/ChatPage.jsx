@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import socket from "../../../socket";
 import { ArrowLeft, Send, Paperclip, ImageIcon } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -457,7 +457,7 @@ export const ChatPage = () => {
   /* LOAD OLD MESSAGES */
   useEffect(() => {
     if (!roomId) return;
-    fetch(`http://localhost:5000/chat/messages/${roomId}`, {
+    fetch(`${BASE_URL}/chat/messages/${roomId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -467,7 +467,7 @@ export const ChatPage = () => {
   /* LOAD CHAT HEADER USER */
   useEffect(() => {
     if (!roomId || !senderId) return;
-    fetch(`http://localhost:5000/chat/room/${roomId}`, {
+    fetch(`${BASE_URL}/chat/room/${roomId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -509,7 +509,7 @@ export const ChatPage = () => {
     formData.append("senderId",   senderId);
     formData.append("senderName", user.name);
 
-    const res  = await fetch("http://localhost:5000/chat/upload", {
+    const res  = await fetch(`${BASE_URL}/chat/upload`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -576,10 +576,10 @@ export const ChatPage = () => {
                     {!isMe && <div className="cp-sender-name">{m.senderName}</div>}
                     {m.image && (
                       <img
-                        src={`http://localhost:5000${m.image}`}
+                        src={`${BASE_URL}${m.image}`}
                         alt="sent"
                         className="cp-msg-img"
-                        onClick={() => setPreviewImage(`http://localhost:5000${m.image}`)}
+                        onClick={() => setPreviewImage(`${BASE_URL}${m.image}`)}
                       />
                     )}
                     {m.message && <div className="cp-msg-text">{m.message}</div>}

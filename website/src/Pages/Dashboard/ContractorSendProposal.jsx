@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { DollarSign, Clock, MessageSquare, Send, ArrowLeft } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -305,7 +305,7 @@ export const ContractorSendProposal = () => {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const res = await fetch("http://localhost:5000/proposals", {
+      const res = await fetch(`${BASE_URL}/proposals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ contractorId, projectId, price, message, completionTime }),

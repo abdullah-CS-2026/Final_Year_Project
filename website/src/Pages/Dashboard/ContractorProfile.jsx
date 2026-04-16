@@ -3,7 +3,7 @@ import { FaEdit, FaTrash, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaVenusMa
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { Shield, FileText, Award, Send } from "lucide-react";
 import Swal from "sweetalert2";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */

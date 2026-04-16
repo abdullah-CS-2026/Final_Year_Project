@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,8 @@ export const AdminLogin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/admin/login", {
+      
+      const res = await axios.post(`${BASE_URL}/admin/login`, {
         email,
         password,
       });

@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import { HouseDoor, ClipboardCheck, ExclamationCircle } from "react-bootstrap-icons";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const Admin = () => {
   const navigate = useNavigate();
 

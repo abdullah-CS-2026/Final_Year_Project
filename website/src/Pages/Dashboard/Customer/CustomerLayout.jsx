@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { CustomerHeader } from "./CustomerHeader";
 import { CustomerSidebar } from "./CustomerSidebaar";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const CustomerLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 

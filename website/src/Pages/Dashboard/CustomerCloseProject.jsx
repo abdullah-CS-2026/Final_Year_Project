@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../css/ConfirmationModal.css";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const CustomerCloseProject = ({ projectId, onSuccess }) => {
   const [isClosing, setIsClosing] = useState(false);
@@ -30,7 +31,7 @@ const CustomerCloseProject = ({ projectId, onSuccess }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/workflow/projects/${projectId}/details`,
+          `${BASE_URL}/workflow/projects/${projectId}/details`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -65,7 +66,7 @@ const CustomerCloseProject = ({ projectId, onSuccess }) => {
       }
 
       const response = await axios.patch(
-        `http://localhost:5000/workflow/projects/${projectId}/close`,
+        `${BASE_URL}/workflow/projects/${projectId}/close`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const ContractorProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ export const ContractorProfile = () => {
   useEffect(() => {
     const fetchContractor = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/contractor/${id}`);
+        const res = await fetch(`${BASE_URL}/contractor/${id}`);
         const data = await res.json();
         setContractor(data);
       } catch (err) {
@@ -25,7 +25,7 @@ export const ContractorProfile = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:5000/admin/contractors/${id}/approve`,
+        `${BASE_URL}/admin/contractors/${id}/approve`,
         {
           method: "PUT",
           headers: {
@@ -52,7 +52,7 @@ export const ContractorProfile = () => {
     try {
       const token = localStorage.getItem("adminToken");
       const response = await fetch(
-        `http://localhost:5000/admin/contractors/${id}/reject`,
+        `${BASE_URL}/admin/contractors/${id}/reject`,
         {
           method: "PUT",
           headers: {
@@ -100,7 +100,7 @@ export const ContractorProfile = () => {
             <div className="col-md-4 text-center mb-3">
               {contractor.profilePic ? (
                 <img
-                  src={`http://localhost:5000${contractor.profilePic}`}
+                  src={`${BASE_URL}${contractor.profilePic}`}
                   alt="Profile"
                   className="rounded-circle border border-3 border-primary"
                   style={{
@@ -199,7 +199,7 @@ export const ContractorProfile = () => {
                 <div className="col-md-4 text-center">
                   <h6>CNIC Front</h6>
                   <img
-                    src={`http://localhost:5000${contractor.cnicFront}`}
+                    src={`${BASE_URL}${contractor.cnicFront}`}
                     alt="CNIC Front"
                     className="img-fluid border rounded"
                     style={{ maxHeight: "200px", objectFit: "contain" }}
@@ -211,7 +211,7 @@ export const ContractorProfile = () => {
                 <div className="col-md-4 text-center">
                   <h6>CNIC Back</h6>
                   <img
-                    src={`http://localhost:5000${contractor.cnicBack}`}
+                    src={`${BASE_URL}${contractor.cnicBack}`}
                     alt="CNIC Back"
                     className="img-fluid border rounded"
                     style={{ maxHeight: "200px", objectFit: "contain" }}
@@ -223,7 +223,7 @@ export const ContractorProfile = () => {
                 <div className="col-md-4 text-center">
                   <h6>Verification Document</h6>
                   <img
-                    src={`http://localhost:5000${contractor.verificationImage}`}
+                    src={`${BASE_URL}${contractor.verificationImage}`}
                     alt="Verification"
                     className="img-fluid border rounded"
                     style={{ maxHeight: "200px", objectFit: "contain" }}

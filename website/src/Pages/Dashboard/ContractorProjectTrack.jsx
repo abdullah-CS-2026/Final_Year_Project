@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const ContractorProjectTrack = () => {
   const proposalId = localStorage.getItem("selectedProposalId");
   if (!proposalId) {
@@ -53,7 +53,7 @@ const [reportingEnabled, setReportingEnabled] = useState(false);
       if (!projectId) return;
 
       const res = await fetch(
-        `http://localhost:5000/projects/${projectId}/details`,
+        `${BASE_URL}/projects/${projectId}/details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ useEffect(() => {
 
       // ✅ 1. Check reporting permission
       const proposalRes = await fetch(
-        `http://localhost:5000/proposals/get-single/${proposalId}`,
+        `${BASE_URL}/proposals/get-single/${proposalId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -103,7 +103,7 @@ useEffect(() => {
 
       // ✅ 2. Fetch daily work
       const workRes = await fetch(
-        `http://localhost:5000/dailyWork/${proposalId}`,
+        `${BASE_URL}/dailyWork/${proposalId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -132,7 +132,7 @@ useEffect(() => {
 
       // ✅ always re-check permission from DB
       const proposalRes = await fetch(
-        `http://localhost:5000/proposals/get-single/${proposalId}`,
+        `${BASE_URL}/proposals/get-single/${proposalId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -143,7 +143,7 @@ useEffect(() => {
 
       // ✅ fetch daily work
       const workRes = await fetch(
-        `http://localhost:5000/dailyWork/${proposalId}`,
+        `${BASE_URL}/dailyWork/${proposalId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -281,7 +281,7 @@ useEffect(() => {
   localStorage.getItem("customerToken") ||
   localStorage.getItem("token");
 
-  const res = await fetch("http://localhost:5000/dailyWork", {
+  const res = await fetch(`${BASE_URL}/dailyWork`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -348,7 +348,7 @@ setTableData((prev) => [result.dailyWork, ...prev]);
    const contractorId = JSON.parse(localStorage.getItem("user"))?.id;
 
 const response = await fetch(
-  `http://localhost:5000/projects/${projectId}/submit`,
+  `${BASE_URL}/projects/${projectId}/submit`,
   {
     method: "PATCH",
     headers: {

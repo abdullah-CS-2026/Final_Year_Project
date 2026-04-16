@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Badge } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 const AdminContractors = () => {
   const [contractors, setContractors] = useState([]);
 

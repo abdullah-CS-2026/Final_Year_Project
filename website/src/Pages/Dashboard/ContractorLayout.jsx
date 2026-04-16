@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { ContractorSidebar } from "./ContractorSidebar";
 import { ContractorHeader } from "./ContractorHeader";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const ContractorLayout = () => {
   const [showSidebar, setShowSidebar] = useState(false);
 

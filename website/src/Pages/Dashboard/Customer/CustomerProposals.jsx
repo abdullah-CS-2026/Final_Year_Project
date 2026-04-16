@@ -6,7 +6,7 @@ import {
   FaMoneyBillWave, FaClipboardList, FaCheckCircle, FaTimesCircle
 } from "react-icons/fa";
 import { Clock, FileText } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ─────────────────────────────────────────
    STYLES
 ───────────────────────────────────────── */
@@ -524,7 +524,7 @@ export const CustomerProposals = () => {
   try {
     const token = localStorage.getItem("customerToken");
 
-    const res = await fetch(`http://localhost:5000/proposals/${id}/${action}`, {
+    const res = await fetch(`${BASE_URL}/proposals/${id}/${action}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -539,7 +539,7 @@ export const CustomerProposals = () => {
       // // 🔥 CHAT CREATE WHEN SHORTLIST (action === accept)
       // if (action === "accept") {
       //   try {
-      //     await fetch("http://localhost:5000/chat/room", {
+      //     await fetch(`${BASE_URL}/chat/room`, {
       //       method: "POST",
       //       headers: {
       //         "Content-Type": "application/json",
@@ -597,7 +597,7 @@ export const CustomerProposals = () => {
         const customerId = customer?._id || customer?.id;
         if (!customerId) { setLoading(false); return; }
 
-        const res = await fetch(`http://localhost:5000/proposals/customer/${customerId}`, {
+        const res = await fetch(`${BASE_URL}/proposals/customer/${customerId}`, {
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

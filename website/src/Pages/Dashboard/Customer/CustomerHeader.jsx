@@ -1,5 +1,5 @@
 import { Search, Bell, User, Menu } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const CustomerHeader = ({ setShowSidebar }) => {
   return (
     <header className="d-flex justify-content-between align-items-center p-3 border-bottom bg-white">

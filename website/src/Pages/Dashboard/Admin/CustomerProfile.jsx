@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const CustomerProfile = () => {
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
@@ -9,7 +9,7 @@ export const CustomerProfile = () => {
   useEffect(() => {
     const fetchCustomer = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/customer/${id}`);
+        const res = await fetch(`${BASE_URL}/customer/${id}`);
         const data = await res.json();
         setCustomer(data);
         console.log(data);
@@ -42,7 +42,7 @@ export const CustomerProfile = () => {
             <div className="col-md-4 text-center mb-3">
               {customer.profilePic ? (
                 <img
-                  src={`http://localhost:5000${customer.profilePic}`}
+                  src={`${BASE_URL}${customer.profilePic}`}
                   alt="Profile"
                   className="rounded-circle border border-3 border-success"
                   style={{ width: "150px", height: "150px", objectFit: "cover" }}

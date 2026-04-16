@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaUser, FaPhone, FaEnvelope, FaMoneyBillWave, FaClipboardList } from "react-icons/fa";
 import { Clock, CalendarDays, MapPin } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -534,7 +534,7 @@ const ProposalCard = ({ proposal }) => (
     <div className="cssp-customer">
       <CustomerAvatar
         src={proposal.customer?.profilePic
-          ? `http://localhost:5000${proposal.customer.profilePic}`
+          ? `${BASE_URL}${proposal.customer.profilePic}`
           : null}
         name={proposal.customer?.name}
       />
@@ -600,7 +600,7 @@ export const ContractorSeeSentProposals = () => {
   useEffect(() => {
     const fetchProposals = async () => {
       try {
-        const res  = await fetch(`http://localhost:5000/proposals/contractor/${contractorId}`);
+        const res  = await fetch(`${BASE_URL}/proposals/contractor/${contractorId}`);
         const data = await res.json();
         setProposals(Array.isArray(data) ? data : []);
       } catch (err) {

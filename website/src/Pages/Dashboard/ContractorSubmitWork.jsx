@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../css/ConfirmationModal.css";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const ContractorSubmitWork = ({ projectId, onSuccess }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +30,7 @@ const ContractorSubmitWork = ({ projectId, onSuccess }) => {
         }
 
         const response = await axios.get(
-          `http://localhost:5000/workflow/projects/${projectId}/details`,
+          `${BASE_URL}/workflow/projects/${projectId}/details`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -61,7 +62,7 @@ const ContractorSubmitWork = ({ projectId, onSuccess }) => {
       }
 
       const response = await axios.patch(
-        `http://localhost:5000/workflow/projects/${projectId}/submit`,
+        `${BASE_URL}/workflow/projects/${projectId}/submit`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { User, Mail, Lock, Phone, MapPin, Home, FileText, CreditCard } from "lucide-react";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const ContractorSignup = () => {
 
@@ -60,7 +61,7 @@ export const ContractorSignup = () => {
         formDataToSend.append("profilePic", profilePic);
       }
 
-      const res = await fetch("http://localhost:5000/contractor/signup", {
+      const res = await fetch(`${BASE_URL}/contractor/signup`, {
         method: "POST",
         body: formDataToSend,
       });
@@ -75,7 +76,7 @@ export const ContractorSignup = () => {
           verificationFormData.append("contractorId", data.contractor._id);
           verificationFormData.append("verificationImage", verificationImage);
 
-          await fetch("http://localhost:5000/contractor/signup/verification", {
+          await fetch(`${BASE_URL}/contractor/signup/verification`, {
             method: "POST",
             body: verificationFormData,
           });
@@ -90,7 +91,7 @@ export const ContractorSignup = () => {
           if (cnicFront) cnicFormData.append("cnicFront", cnicFront);
           if (cnicBack) cnicFormData.append("cnicBack", cnicBack);
 
-          await fetch("http://localhost:5000/contractor/signup/cnic", {
+          await fetch(`${BASE_URL}/contractor/signup/cnic`, {
             method: "POST",
             body: cnicFormData,
           });

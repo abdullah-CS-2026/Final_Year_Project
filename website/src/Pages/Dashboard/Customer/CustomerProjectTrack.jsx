@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import ReviewSubmission from "../../../components/ReviewSubmission";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const CustomerProjectTrack = () => {
   const customerId = JSON.parse(localStorage.getItem("user"))?.id;
   const [tableData, setTableData] = useState([]);
@@ -13,6 +13,7 @@ export const CustomerProjectTrack = () => {
   const [completionTime, setCompletionTime] = useState("");
   const [remainingDays, setRemainingDays] = useState(null);
   const [projectStatus, setProjectStatus] = useState(null);
+
 
   const handleCloseProject = async () => {
   try {
@@ -40,7 +41,7 @@ export const CustomerProjectTrack = () => {
       return;
     }
 
-    const url = `http://localhost:5000/projects/${projectId}/close`;
+    const url = `${BASE_URL}/projects/${projectId}/close`;
     console.log("🔍 [CLOSE PROJECT] Sending request to:", url);
     console.log("   - Method: PATCH");
     console.log("   - Headers: Authorization Bearer");
@@ -121,7 +122,7 @@ if (!token) {
 
         // 1️⃣ Get accepted proposals
         const proposalRes = await fetch(
-          `http://localhost:5000/proposals/customer/${customerId}/accepted`,
+          `${BASE_URL}/proposals/customer/${customerId}/accepted`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -160,7 +161,7 @@ if (!token) {
         if (projId) {
           try {
             const projectRes = await fetch(
-              `http://localhost:5000/projects/${projId}/details`,
+              `${BASE_URL}/projects/${projId}/details`,
               { headers: { Authorization: `Bearer ${token}` } }
             );
 
@@ -175,7 +176,7 @@ if (!token) {
 
         // 4️⃣ Fetch daily work
         const workRes = await fetch(
-          `http://localhost:5000/dailyWork/${activeProposal._id}`,
+          `${BASE_URL}/dailyWork/${activeProposal._id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -218,7 +219,7 @@ const toggleReporting = async () => {
     const token = localStorage.getItem("customerToken");
 
     const res = await fetch(
-      `http://localhost:5000/proposals/toggle-work/${proposalId}`,
+      `${BASE_URL}/proposals/toggle-work/${proposalId}`,
       {
         method: "PATCH",
         headers: {

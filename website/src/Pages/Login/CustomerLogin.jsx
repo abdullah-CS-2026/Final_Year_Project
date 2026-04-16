@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Mail, Lock, Home } from "lucide-react";
 import { showToast } from "../../components/Toast";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const CustomerLogin = () => {
 
@@ -20,7 +21,7 @@ export const CustomerLogin = () => {
 
     try {
 
-      const res = await fetch("http://localhost:5000/customer/login", {
+      const res = await fetch(`${BASE_URL}/customer/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -256,7 +257,7 @@ export const CustomerLogin = () => {
                   {customer.profilePic && (
 
                     <img
-                      src={`http://localhost:5000${customer.profilePic}`}
+                      src={`${BASE_URL}${customer.profilePic}`}
                       alt="Profile"
                       className="rounded-circle mt-2"
                       style={{

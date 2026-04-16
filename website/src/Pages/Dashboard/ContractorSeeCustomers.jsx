@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaMapMarkerAlt } from "react-icons/fa";
 import { ChevronRight, Search, HardHat } from "lucide-react";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -394,7 +394,7 @@ export const ContractorSeeCustomers = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res  = await fetch(`http://localhost:5000/contractor/${contractorId}/accepted`);
+        const res  = await fetch(`${BASE_URL}/contractor/${contractorId}/accepted`);
         const data = await res.json();
         setCustomers(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -490,7 +490,7 @@ export const ContractorSeeCustomers = () => {
                     <div className="csc-avatar-wrap">
                       <Avatar
                         src={item.customer?.profilePic
-                          ? `http://localhost:5000${item.customer.profilePic}`
+                          ? `${BASE_URL}${item.customer.profilePic}`
                           : null}
                         name={item.customer?.name}
                       />

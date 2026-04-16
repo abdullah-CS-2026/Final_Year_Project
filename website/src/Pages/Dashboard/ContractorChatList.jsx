@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MessageCircle, ChevronRight, Search } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 /* ═══════════════════════════════════════════
    STYLES
 ═══════════════════════════════════════════ */
@@ -397,7 +397,7 @@ export const ContractorChatList = () => {
         const contractorId = contractor.id || contractor._id;
         if (!contractorId) { console.error("No contractor ID found"); return; }
 
-        const response = await fetch(`http://localhost:5000/contractor/${contractorId}/accepted`);
+        const response = await fetch(`${BASE_URL}/contractor/${contractorId}/accepted`);
         if (!response.ok) throw new Error(`Server returned ${response.status}`);
 
         const data = await response.json();
@@ -417,7 +417,7 @@ export const ContractorChatList = () => {
     const token = localStorage.getItem("token");
     if (!token) { console.error("Contractor token missing"); return; }
 
-    fetch("http://localhost:5000/chat/room", {
+    fetch(`${BASE_URL}/chat/room`, {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       body: JSON.stringify({ proposalId }),
@@ -506,7 +506,7 @@ export const ContractorChatList = () => {
                     <div className="ccl2-avatar-wrap">
                       <Avatar
                         src={proposal.customer?.profilePic
-                          ? `http://localhost:5000${proposal.customer.profilePic}`
+                          ? `${BASE_URL}${proposal.customer.profilePic}`
                           : null}
                         name={proposal.customer?.name}
                       />

@@ -8,7 +8,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
-
+const BASE_URL = import.meta.env.VITE_API_URL;
 export const ContractorSidebar = ({ showSidebar, setShowSidebar }) => {
   const navigate = useNavigate();
 
