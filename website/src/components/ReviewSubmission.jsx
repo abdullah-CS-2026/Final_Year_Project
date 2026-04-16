@@ -31,7 +31,7 @@ const ReviewSubmission = ({ projectId, customerId, contractorId, onReviewSubmitt
       if (!idToUse) return;
 
       const response = await axios.get(
-        `http://localhost:5000/projects/${idToUse}/details`,
+        `${BASE_URL}/projects/${idToUse}/details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,7 +57,7 @@ const ReviewSubmission = ({ projectId, customerId, contractorId, onReviewSubmitt
       if (!idToUse) return;
 
       const response = await axios.get(
-        `http://localhost:5000/projects/${idToUse}/review-status?customerId=${customerId}`,
+        `${BASE_URL}/projects/${idToUse}/review-status?customerId=${customerId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -127,7 +127,7 @@ const ReviewSubmission = ({ projectId, customerId, contractorId, onReviewSubmitt
       };
 
       const response = await axios.post(
-        `http://localhost:5000/projects/${idToUse}/review`,
+        `${BASE_URL}/projects/${idToUse}/review`,
         reviewData,
         {
           headers: {

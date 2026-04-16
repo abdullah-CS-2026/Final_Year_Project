@@ -46,7 +46,7 @@ const ProjectClosing = ({ projectId, customerId, onClosed }) => {
       console.log("📡 Fetching project details with token:", token.substring(0, 20) + "...");
 
       const response = await axios.get(
-        `http://localhost:5000/projects/${idToUse}/details`,
+        `${BASE_URL}/projects/${idToUse}/details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ const ProjectClosing = ({ projectId, customerId, onClosed }) => {
       }
 
       const response = await axios.patch(
-        `http://localhost:5000/projects/${idToUse}/close`,
+        `${BASE_URL}/projects/${idToUse}/close`,
         {
           customerId,
         },

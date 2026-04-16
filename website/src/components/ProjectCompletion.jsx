@@ -18,7 +18,7 @@ const ProjectCompletion = ({ projectId, contractorId, onCompleted }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5000/projects/${projectId}/details`,
+        `${BASE_URL}/projects/${projectId}/details`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

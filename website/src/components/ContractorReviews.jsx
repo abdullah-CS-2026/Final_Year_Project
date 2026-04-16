@@ -18,7 +18,7 @@ const ContractorReviews = ({ contractorId }) => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:5000/reviews/contractor/${contractorId}`
+        `${BASE_URL}/reviews/contractor/${contractorId}`
       );
 
       setReviews(response.data.reviews || []);
