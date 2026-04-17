@@ -4,7 +4,7 @@ const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const getConnection = require("./utils/getConnection");
-
+require("dotenv").config();
 
 
 // Routes
@@ -18,6 +18,9 @@ const dailyWorkRoutes = require("./routes/dailyWorkRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const projectWorkflowRoutes = require("./routes/projectWorkflowRoutes");
+
+
+
 
 const app = express();
 
@@ -122,8 +125,10 @@ socket.on("chatMessage", async ({ roomId, senderId, senderName, message }) => {
 });
 
 // Connect to DB and start server
+const PORT = process.env.PORT || 5000;
+
 getConnection().then(() => {
-  server.listen(5000, () => {
-    console.log("🚀 Server running on http://localhost:5000");
+  server.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
   });
 });
