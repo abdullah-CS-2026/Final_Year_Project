@@ -257,7 +257,7 @@ export const CustomerLogin = () => {
                   {customer.profilePic && (
 
                     <img
-                      src={`${BASE_URL}${customer.profilePic}`}
+                      src={customer.profilePic}
                       alt="Profile"
                       className="rounded-circle mt-2"
                       style={{

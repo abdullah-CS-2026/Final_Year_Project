@@ -436,10 +436,10 @@ export const CustomerProfile = () => {
   };
 
   const avatarSrc = preview
-    ? preview
-    : customer.profilePic
-    ? `${BASE_URL}${customer.profilePic}`
-    : null;
+  ? preview
+  : customer.profilePic
+  ? customer.profilePic
+  : null;
 
   return (
     <>
