@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ContractorReviews.css";
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const ContractorReviews = ({ contractorId }) => {
   const [reviews, setReviews] = useState([]);
@@ -160,7 +161,7 @@ const ContractorReviews = ({ contractorId }) => {
                       <div className="reviewer-avatar">
                         {review.customer?.profilePic ? (
                           <img
-                            src={`http://localhost:3001/customer_images/${review.customer.profilePic}`}
+                            src={`${BASE_URL}/customer_images/${review.customer.profilePic}`}
                             alt={review.customer?.name}
                           />
                         ) : (

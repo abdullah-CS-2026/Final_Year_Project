@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ProjectClosing.css";
 
+
 const ProjectClosing = ({ projectId, customerId, onClosed }) => {
   const [project, setProject] = useState(null);
   const [proposal, setProposal] = useState(null);
