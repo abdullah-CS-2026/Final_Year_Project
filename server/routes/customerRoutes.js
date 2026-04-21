@@ -16,6 +16,8 @@ const ProjectRequest = require('../models/ProjectRequest');
 // Customer signup
 
 router.post("/signup", customerFileUpload, async (req, res) => {
+    console.log("FILE:", req.file);
+  console.log("BODY:", req.body);
   try {
     let imageUrl = null;
 
