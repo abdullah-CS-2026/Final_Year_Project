@@ -50,6 +50,15 @@ export const CustomerSignup = () => {
         formDataToSend.append("profilePic", profilePic);
       }
 
+       // 🔴 STEP 3 DEBUG HERE (ADD THIS)
+    console.log("📦 FORM DATA CONTENT:");
+    for (let pair of formDataToSend.entries()) {
+      console.log(pair[0], pair[1]);
+    }
+
+    console.log([...formDataToSend.entries()]);
+    
+
       const res = await fetch(`${BASE_URL}/customer/signup`, {
         method: "POST",
         body: formDataToSend,
