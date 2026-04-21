@@ -117,8 +117,8 @@ function App() {
 },
 
     // Admin routes
-    { path: '/admin/signup', element: <AdminSignup /> },
-    { path: '/admin/login', element: <AdminLogin /> },
+    { path: 'admin/signup', element: <AdminSignup /> },
+    { path: 'admin/login', element: <AdminLogin /> },
     {
   path: "/admin",
   element: (
