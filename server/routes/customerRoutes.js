@@ -5,7 +5,7 @@ const Customer = require("../models/Customer");
 const customerFileUpload = require("../CustomerPic");
 const { JWT_SECRET } = require("../utils/jwtConfig");
 const authMiddleware = require("../middleware/authMiddleware.js");
-
+const cloudinary = require("../config/cloudinary");
 const uploadHouseImages = require("../HouseImages"); // import custom multer config
 
 
@@ -14,27 +14,41 @@ const router = express.Router();
 const ProjectRequest = require('../models/ProjectRequest');
 
 // Customer signup
+
 router.post("/signup", customerFileUpload, async (req, res) => {
   try {
-    const customerData = {
+    let imageUrl = null;
+
+    if (req.file) {
+      const result = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: "customer_profiles" },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+        stream.end(req.file.buffer);
+      });
+
+      imageUrl = result.secure_url;
+    }
+
+    const customer = new Customer({
       name: req.body.name,
       phone: req.body.phone,
       email: req.body.email,
       address: req.body.address,
       password: req.body.password,
       gender: req.body.gender,
-      profilePic: req.file ? `/customer_images/${req.file.filename}` : null,
-    };
+      profilePic: imageUrl,
+    });
 
-    const customer = new Customer(customerData);
     await customer.save();
 
-    res.status(201).json({ message: "Customer registered successfully", customer });
+    res.status(201).json({ customer });
+
   } catch (error) {
-    if (error.code === 11000) {
-      if (error.keyPattern.phone) return res.status(400).json({ error: "Phone already registered" });
-      if (error.keyPattern.email) return res.status(400).json({ error: "Email already registered" });
-    }
     res.status(400).json({ error: error.message });
   }
 });
@@ -67,7 +81,10 @@ router.post("/login", async (req, res) => {
 router.put("/update/:id", customerFileUpload, async (req, res) => {
   try {
     const { id } = req.params;
-
+    
+    if (req.body.removeProfile === "true") {
+  updatedData.profilePic = null;
+}
     const updatedData = {
       name: req.body.name,
       phone: req.body.phone,
@@ -77,9 +94,20 @@ router.put("/update/:id", customerFileUpload, async (req, res) => {
     };
 
     // If new profile picture uploaded
-    if (req.file) {
-      updatedData.profilePic = `/customer_images/${req.file.filename}`;
-    }
+   if (req.file) {
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "customer_profiles" },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(req.file.buffer);
+  });
+
+  updatedData.profilePic = result.secure_url;
+}
 
     const updatedCustomer = await Customer.findByIdAndUpdate(
       id,
