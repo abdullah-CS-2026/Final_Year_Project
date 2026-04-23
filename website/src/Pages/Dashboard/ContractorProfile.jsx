@@ -676,7 +676,7 @@ export const ContractorProfile = () => {
   useEffect(() => {
     if (!contractor?._id) return;
     const fetchFreshData = async () => {
-      const res  = await fetch(`http://localhost:5000/contractor/${contractor._id}`);
+      const res  = await fetch(`${BASE_URL}/contractor/${contractor._id}`);
       const data = await res.json();
       localStorage.setItem("contractor", JSON.stringify(data));
       setOriginalData(data);
@@ -692,7 +692,7 @@ export const ContractorProfile = () => {
         setLoadingReviews(true);
         console.log("🔍 [REVIEWS] Fetching reviews for contractor:", contractor._id);
         const response = await fetch(
-          `http://localhost:5000/reviews/contractor/${contractor._id}`
+          `${BASE_URL}/reviews/contractor/${contractor._id}`
         );
         
         if (!response.ok) {
@@ -792,7 +792,7 @@ export const ContractorProfile = () => {
       if (selectedFile)   body.append("profilePic",    selectedFile);
       if (removeProfile)  body.append("removeProfile", true);
 
-      const res  = await fetch(`http://localhost:5000/contractor/update/${contractorId}`, { method: "PUT", body });
+      const res  = await fetch(`${BASE_URL}/contractor/update/${contractorId}`, { method: "PUT", body });
       const data = await res.json();
 
       if (res.ok) {
@@ -816,7 +816,7 @@ export const ContractorProfile = () => {
   const avatarSrc = preview
     ? preview
     : contractor.profilePic
-      ? `http://localhost:5000${contractor.profilePic}`
+      ? `${BASE_URL}${contractor.profilePic}`
       : null;
 
   const hasDocs = contractor.cnicFront || contractor.cnicBack ||
@@ -944,19 +944,19 @@ export const ContractorProfile = () => {
                       {contractor.cnicFront && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaIdCard size={11} /> CNIC Front</span>
-                          <img src={`http://localhost:5000${contractor.cnicFront}`} alt="CNIC Front" className="cp3-doc-img" />
+                          <img src={`${BASE_URL}${contractor.cnicFront}`} alt="CNIC Front" className="cp3-doc-img" />
                         </div>
                       )}
                       {contractor.cnicBack && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaIdCard size={11} /> CNIC Back</span>
-                          <img src={`http://localhost:5000${contractor.cnicBack}`} alt="CNIC Back" className="cp3-doc-img" />
+                          <img src={`${BASE_URL}${contractor.cnicBack}`} alt="CNIC Back" className="cp3-doc-img" />
                         </div>
                       )}
                       {contractor.verificationImage && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaUser size={11} /> Verification Photo</span>
-                          <img src={`http://localhost:5000${contractor.verificationImage}`} alt="Verification" className="cp3-doc-img" />
+                          <img src={`${BASE_URL}${contractor.verificationImage}`} alt="Verification" className="cp3-doc-img" />
                         </div>
                       )}
                     </div>
@@ -967,7 +967,7 @@ export const ContractorProfile = () => {
                         <p className="cp3-section-label"><Award size={13} /> Certifications</p>
                         <div className="cp3-cert-grid">
                           {contractor.certifications.map((cert, i) => (
-                            <img key={i} src={`http://localhost:5000${cert}`} alt={`Certificate-${i}`} className="cp3-cert-img" />
+                            <img key={i} src={`${BASE_URL}${cert}`} alt={`Certificate-${i}`} className="cp3-cert-img" />
                           ))}
                         </div>
                       </>
