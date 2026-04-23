@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ReviewSubmission.css";
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 
 const ReviewSubmission = ({ projectId, customerId, contractorId, onReviewSubmitted }) => {
   const [project, setProject] = useState(null);
