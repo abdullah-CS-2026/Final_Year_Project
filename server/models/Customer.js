@@ -8,6 +8,10 @@ const CustomerSchema = new mongoose.Schema({
   password: { type: String, required: true },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
    role: { type: String, default: "customer" },  // ✅ auto-assign role
+     profilePic: {
+    type: String,
+    default: null
+  },
   createdAt: { type: Date, default: Date.now }
 });
 
