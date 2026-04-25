@@ -57,9 +57,14 @@ export const ContractorSignup = () => {
       formDataToSend.append("password", formData.password);
       formDataToSend.append("gender", formData.gender);
 
-      if (profilePic) {
-        formDataToSend.append("profilePic", profilePic);
-      }
+//       if (profilePic) {
+//   formDataToSend.append("profilePic", profilePic);
+// }
+
+      if (profilePic) formDataToSend.append("profilePic", profilePic);
+if (verificationImage) formDataToSend.append("verificationImage", verificationImage);
+if (cnicFront) formDataToSend.append("cnicFront", cnicFront);
+if (cnicBack) formDataToSend.append("cnicBack", cnicBack);
 
       const res = await fetch(`${BASE_URL}/contractor/signup`, {
         method: "POST",
@@ -70,33 +75,33 @@ export const ContractorSignup = () => {
 
       if (res.ok) {
 
-        if (verificationImage) {
+        // if (verificationImage) {
 
-          const verificationFormData = new FormData();
-          verificationFormData.append("contractorId", data.contractor._id);
-          verificationFormData.append("verificationImage", verificationImage);
+        //   const verificationFormData = new FormData();
+        //   verificationFormData.append("contractorId", data.contractor._id);
+        //   verificationFormData.append("verificationImage", verificationImage);
 
-          await fetch(`${BASE_URL}/contractor/signup/verification`, {
-            method: "POST",
-            body: verificationFormData,
-          });
+        //   await fetch(`${BASE_URL}/contractor/signup/verification`, {
+        //     method: "POST",
+        //     body: verificationFormData,
+        //   });
 
-        }
+        // }
 
-        if (cnicFront || cnicBack) {
+        // if (cnicFront || cnicBack) {
 
-          const cnicFormData = new FormData();
-          cnicFormData.append("contractorId", data.contractor._id);
+        //   const cnicFormData = new FormData();
+        //   cnicFormData.append("contractorId", data.contractor._id);
 
-          if (cnicFront) cnicFormData.append("cnicFront", cnicFront);
-          if (cnicBack) cnicFormData.append("cnicBack", cnicBack);
+        //   if (cnicFront) cnicFormData.append("cnicFront", cnicFront);
+        //   if (cnicBack) cnicFormData.append("cnicBack", cnicBack);
 
-          await fetch(`${BASE_URL}/contractor/signup/cnic`, {
-            method: "POST",
-            body: cnicFormData,
-          });
+        //   await fetch(`${BASE_URL}/contractor/signup/cnic`, {
+        //     method: "POST",
+        //     body: cnicFormData,
+        //   });
 
-        }
+        // }
 
         alert("Signup successful!");
         navigate("/contractor-login");

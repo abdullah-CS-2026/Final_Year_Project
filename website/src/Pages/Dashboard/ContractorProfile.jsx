@@ -813,11 +813,11 @@ export const ContractorProfile = () => {
   };
 
   /* Avatar src */
-  const avatarSrc = preview
-    ? preview
-    : contractor.profilePic
-      ? `${BASE_URL}${contractor.profilePic}`
-      : null;
+const avatarSrc = preview
+  ? preview
+  : contractor.profilePic
+    ? contractor.profilePic
+    : null;
 
   const hasDocs = contractor.cnicFront || contractor.cnicBack ||
     contractor.verificationImage || contractor.certifications?.length > 0;
@@ -944,34 +944,31 @@ export const ContractorProfile = () => {
                       {contractor.cnicFront && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaIdCard size={11} /> CNIC Front</span>
-                          <img src={`${BASE_URL}${contractor.cnicFront}`} alt="CNIC Front" className="cp3-doc-img" />
+                          <img src={contractor.cnicFront} alt="CNIC Front" className="cp3-doc-img" />
                         </div>
                       )}
                       {contractor.cnicBack && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaIdCard size={11} /> CNIC Back</span>
-                          <img src={`${BASE_URL}${contractor.cnicBack}`} alt="CNIC Back" className="cp3-doc-img" />
+                          <img src={contractor.cnicBack} alt="CNIC Back" className="cp3-doc-img" />
                         </div>
                       )}
                       {contractor.verificationImage && (
                         <div className="cp3-doc-item">
                           <span className="cp3-doc-label"><FaUser size={11} /> Verification Photo</span>
-                          <img src={`${BASE_URL}${contractor.verificationImage}`} alt="Verification" className="cp3-doc-img" />
+                          <img src={contractor.verificationImage} alt="Verification" className="cp3-doc-img" />
                         </div>
                       )}
                     </div>
 
-                    {contractor.certifications?.length > 0 && (
-                      <>
-                        <div className="cp3-section-divider" style={{ margin: "20px 0 14px" }} />
-                        <p className="cp3-section-label"><Award size={13} /> Certifications</p>
-                        <div className="cp3-cert-grid">
-                          {contractor.certifications.map((cert, i) => (
-                            <img key={i} src={`${BASE_URL}${cert}`} alt={`Certificate-${i}`} className="cp3-cert-img" />
-                          ))}
-                        </div>
-                      </>
-                    )}
+                    {contractor.certifications.map((cert, i) => (
+  <img
+    key={i}
+    src={cert.certificateImage}
+    alt={`Certificate-${i}`}
+    className="cp3-cert-img"
+  />
+))}
                   </>
                 )}
               </div>

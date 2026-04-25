@@ -6,12 +6,11 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const Contractor = require("../models/Contractor");
-const fileUpload = require("../ContractorPic");
+// const fileUpload = require("../ContractorPic");
+const upload = require("../middleware/contractorUpload");
+const cloudinary = require("../config/cloudinary");
 
-const certificationUpload = require("../middleware/ContractorCertifications");
-const verificationUpload = require("../middleware/ContractorVerification");
-const verificationImageUpload = require("../middleware/ContractorVerificationImage");
-const cnicUpload = require("../middleware/ContractorCNIC");
+
 const authMiddleware = require("../middleware/authMiddleware");
 const { JWT_SECRET } = require("../utils/jwtConfig");
 const ProjectRequest = require("../models/ProjectRequest");
@@ -21,103 +20,112 @@ const Proposal = require("../models/Proposal")
 
 const router = express.Router();
 
+const uploadToCloudinary = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result.secure_url);
+      }
+    );
+    stream.end(buffer);
+  });
+};
+
 // Contractor signup
-router.post("/signup", fileUpload, async (req, res) => {
+// router.post("/signup", fileUpload, async (req, res) => {
+//   try {
+//     // Hash password before saving
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+//     const contractorData = {
+//       name: req.body.name,
+//       phone: req.body.phone,
+//       cnicNumber: req.body.cnicNumber,
+//       email: req.body.email,
+//       address: req.body.address,
+//       city: req.body.city,
+//       password: hashedPassword, // Use hashed password
+//       gender: req.body.gender,
+//       profilePic: req.file ? `/contractor_images/${req.file.filename}` : null,
+//       status: "pending",
+//     };
+
+//     const contractor = new Contractor(contractorData);
+//     await contractor.save();
+
+//     res.status(201).json({ message: "Signup successful! Wait for admin approval.", contractor });
+//   } catch (error) {
+//     if (error.code === 11000) {
+//       if (error.keyPattern.cnicNumber) return res.status(400).json({ error: "CNIC already registered" });
+//       if (error.keyPattern.phone) return res.status(400).json({ error: "Phone already registered" });
+//       if (error.keyPattern.email) return res.status(400).json({ error: "Email already registered" });
+//     }
+//     res.status(400).json({ error: error.message });
+//   }
+// });
+router.post("/signup", upload, async (req, res) => {
   try {
-    // Hash password before saving
+    const files = req.files || {};
+
+    const profilePic = files.profilePic
+      ? await uploadToCloudinary(files.profilePic[0].buffer, "contractor/profile")
+      : null;
+
+    const verificationImage = files.verificationImage
+      ? await uploadToCloudinary(files.verificationImage[0].buffer, "contractor/verification")
+      : null;
+
+    const cnicFront = files.cnicFront
+      ? await uploadToCloudinary(files.cnicFront[0].buffer, "contractor/cnic")
+      : null;
+
+    const cnicBack = files.cnicBack
+      ? await uploadToCloudinary(files.cnicBack[0].buffer, "contractor/cnic")
+      : null;
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const contractorData = {
+    const contractor = new Contractor({
       name: req.body.name,
       phone: req.body.phone,
       cnicNumber: req.body.cnicNumber,
       email: req.body.email,
       address: req.body.address,
       city: req.body.city,
-      password: hashedPassword, // Use hashed password
+      password: hashedPassword,
       gender: req.body.gender,
-      profilePic: req.file ? `/contractor_images/${req.file.filename}` : null,
-      status: "pending",
-    };
 
-    const contractor = new Contractor(contractorData);
+      profilePic,
+      verificationImage,
+      cnicFront,
+      cnicBack,
+    });
+
     await contractor.save();
 
-    res.status(201).json({ message: "Signup successful! Wait for admin approval.", contractor });
+    res.status(201).json({ contractor });
+
   } catch (error) {
-    if (error.code === 11000) {
-      if (error.keyPattern.cnicNumber) return res.status(400).json({ error: "CNIC already registered" });
-      if (error.keyPattern.phone) return res.status(400).json({ error: "Phone already registered" });
-      if (error.keyPattern.email) return res.status(400).json({ error: "Email already registered" });
+  console.error(error);
+
+  // ✅ Handle duplicate key errors (MongoDB)
+  if (error.code === 11000) {
+    if (error.keyPattern?.cnicNumber) {
+      return res.status(400).json({ error: "CNIC already registered" });
     }
-    res.status(400).json({ error: error.message });
+    if (error.keyPattern?.phone) {
+      return res.status(400).json({ error: "Phone already registered" });
+    }
+    if (error.keyPattern?.email) {
+      return res.status(400).json({ error: "Email already registered" });
+    }
   }
-});
 
-// Contractor verification image upload (separate route for verification image)
-router.post("/signup/verification", verificationImageUpload, async (req, res) => {
-  try {
-    const { contractorId } = req.body;
-
-    if (!req.file) {
-      return res.status(400).json({ error: "Verification image is required" });
-    }
-
-    const contractor = await Contractor.findByIdAndUpdate(
-      contractorId,
-      { verificationImage: `/contractor_verification_images/${req.file.filename}` },
-      { new: true }
-    );
-
-    if (!contractor) {
-      return res.status(404).json({ error: "Contractor not found" });
-    }
-
-    res.status(200).json({
-      message: "Verification image uploaded successfully",
-      contractor
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Contractor CNIC images upload (separate route for CNIC images)
-router.post("/signup/cnic", cnicUpload, async (req, res) => {
-  try {
-    const { contractorId } = req.body;
-
-    if (!req.files || (!req.files.cnicFront && !req.files.cnicBack)) {
-      return res.status(400).json({ error: "At least one CNIC image is required" });
-    }
-
-    const updateData = {};
-
-    if (req.files.cnicFront) {
-      updateData.cnicFront = `/contractor_cnic_images/${req.files.cnicFront[0].filename}`;
-    }
-
-    if (req.files.cnicBack) {
-      updateData.cnicBack = `/contractor_cnic_images/${req.files.cnicBack[0].filename}`;
-    }
-
-    const contractor = await Contractor.findByIdAndUpdate(
-      contractorId,
-      updateData,
-      { new: true }
-    );
-
-    if (!contractor) {
-      return res.status(404).json({ error: "Contractor not found" });
-    }
-
-    res.status(200).json({
-      message: "CNIC images uploaded successfully",
-      contractor
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  // ✅ fallback error
+  res.status(500).json({ error: error.message });
+}
 });
 
 
@@ -394,7 +402,7 @@ router.post("/reset-password", async (req, res) => {
 
 
 // Update contractor profile
-router.put("/update/:id", fileUpload, async (req, res) => {
+router.put("/update/:id", upload, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -414,9 +422,12 @@ router.put("/update/:id", fileUpload, async (req, res) => {
     }
 
     // ✅ If new profile picture uploaded
-    if (req.file) {
-      updatedData.profilePic = `/contractor_images/${req.file.filename}`;
-    }
+    if (req.files?.profilePic) {
+  updatedData.profilePic = await uploadToCloudinary(
+    req.files.profilePic[0].buffer,
+    "contractor/profile"
+  );
+}
 
     // ✅ Find & update contractor
     const updatedContractor = await Contractor.findByIdAndUpdate(
