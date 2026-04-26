@@ -10,7 +10,7 @@ const AdminContractors = () => {
   }, []);
 
   const fetchContractors = async () => {
-    const res = await fetch("http://localhost:5000/contractor/list");
+    const res = await fetch(`${BASE_URL}/contractor/list`);
     const data = await res.json();
     setContractors(data.list || []);
   };
